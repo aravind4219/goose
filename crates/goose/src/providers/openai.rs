@@ -860,26 +860,17 @@ mod tests {
 
     #[test]
     fn derive_base_path_empty_path_gives_default_endpoint() {
-        assert_eq!(
-            OpenAiProvider::derive_base_path("/"),
-            "v1/chat/completions"
-        );
+        assert_eq!(OpenAiProvider::derive_base_path("/"), "v1/chat/completions");
     }
 
     #[test]
     fn derive_base_path_bare_v1_gives_chat_completions() {
-        assert_eq!(
-            OpenAiProvider::derive_base_path("/v1"),
-            "v1/chat/completions"
-        );
+        assert_eq!(OpenAiProvider::derive_base_path("/v1"), "v1/chat/completions");
     }
 
     #[test]
     fn derive_base_path_v1_with_trailing_slash() {
-        assert_eq!(
-            OpenAiProvider::derive_base_path("/v1/"),
-            "v1/chat/completions"
-        );
+        assert_eq!(OpenAiProvider::derive_base_path("/v1/"), "v1/chat/completions");
     }
 
     #[test]
@@ -908,9 +899,6 @@ mod tests {
 
     #[test]
     fn derive_base_path_non_v1_prefix_unchanged() {
-        assert_eq!(
-            OpenAiProvider::derive_base_path("/anthropic"),
-            "anthropic"
-        );
+        assert_eq!(OpenAiProvider::derive_base_path("/anthropic"), "anthropic");
     }
 }
