@@ -405,6 +405,13 @@ export type ExtensionConfig = {
      * The name used to identify this extension
      */
     name: string;
+    /**
+     * Optional Unix domain socket path for HTTP-over-UDS transport.
+     * When set, the HTTP connection is routed through this socket while
+     * `uri` is used for the Host header and path.
+     * Use `@name` for Linux abstract sockets.
+     */
+    socket?: string | null;
     timeout?: number | null;
     type: 'streamable_http';
     uri: string;
@@ -541,6 +548,7 @@ export type HfQuantVariant = {
     filename: string;
     quality_rank: number;
     quantization: string;
+    sharded?: boolean;
     size_bytes: number;
 };
 
@@ -548,7 +556,12 @@ export type Icon = {
     mimeType?: string;
     sizes?: Array<string>;
     src: string;
+    theme?: IconTheme | {
+        [key: string]: unknown;
+    };
 };
+
+export type IconTheme = 'light' | 'dark';
 
 export type ImageContent = {
     _meta?: {
@@ -1095,6 +1108,8 @@ export type RemoveExtensionRequest = {
 };
 
 export type RepoVariantsResponse = {
+    available_memory_bytes: number;
+    downloaded_quants: Array<string>;
     recommended_index?: number | null;
     variants: Array<HfQuantVariant>;
 };
@@ -1292,8 +1307,6 @@ export type SessionListResponse = {
 
 export type SessionReplyRequest = {
     override_conversation?: Array<Message> | null;
-    recipe_name?: string | null;
-    recipe_version?: string | null;
     /**
      * Client-generated UUIDv7 identifying this request.
      */
@@ -3405,6 +3418,20 @@ export type SearchHfModelsResponses = {
 };
 
 export type SearchHfModelsResponse = SearchHfModelsResponses[keyof SearchHfModelsResponses];
+
+export type SyncFeaturedModelsData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/local-inference/sync-featured';
+};
+
+export type SyncFeaturedModelsResponses = {
+    /**
+     * Featured models synced to registry
+     */
+    200: unknown;
+};
 
 export type McpUiProxyData = {
     body?: never;

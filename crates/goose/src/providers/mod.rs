@@ -28,11 +28,13 @@ pub mod gemini_oauth;
 pub mod githubcopilot;
 pub mod google;
 mod init;
+pub mod kimicode;
 pub mod litellm;
 #[cfg(feature = "local-inference")]
 pub mod local_inference;
 pub mod nanogpt;
 pub mod oauth;
+pub mod oauth_device_flow;
 pub mod ollama;
 pub mod openai;
 pub mod openai_compatible;
